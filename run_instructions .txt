@@ -1,0 +1,117 @@
+Distributed System Project - Run Instructions
+
+SETUP INSTRUCTIONS
+
+
+1. Install Python
+
+Make sure Python 3.7 or later is installed.
+You can download it from: https://www.python.org/downloads/
+
+2. Install Required Packages
+
+Open a terminal and run:
+
+    pip install tkinter socket threading google-auth \
+    google-auth-oauthlib google-auth-httplib2 \
+    google-api-python-client PyPDF2
+
+3. Google Drive API Setup (One-Time)
+
+To allow file operations using Google Drive:
+
+a. Go to Google Cloud Console and enable the **Google Drive API**  
+   https://console.developers.google.com/
+
+b. Create OAuth 2.0 credentials and download `client_secrets.json`.
+
+c. Place the `client_secrets.json` file in the project root directory.
+
+d. When running the client for the first time, a browser window will open to authenticate.  
+   After successful login, a `token.pickle` file will be generated for future sessions.
+
+
+Step-by-Step Execution Instructions
+
+
+1. Starting the Name Server
+
+Run the name server which registers slaves and helps the primary server discover them.
+Command:
+     python Pyro4.naming -n <your_ip>
+
+2. Connecting All Slaves One by One
+Each slave connects to the name server and registers itself. Start each slave in a new terminal.
+Commands:
+    python slave1.py
+    python slave2.py
+    python slave3.py
+
+3. Starting the Primary Server
+Once all slaves are connected to the name server, start the primary server.
+Command:
+    python primary_server.py
+
+4. Starting the Secondary Server
+(If used for backup or additional communication, restart or ensure it is running.)
+Command:
+    python secondary_server.py
+
+5. Starting the Client Application
+Launch the GUI client to perform distributed operations.
+Command:
+    python client.py
+
+6. Performing an Operation (e.g., Matrix Multiplication)
+- On the client GUI, choose the Matrix Multiplication option.
+- Upload or enter the matrix data as required.
+- Submit the task to start distributed computation.
+- The client sends the job to the primary server, which splits the task among slaves.
+- The result is displayed on the GUI after completion.
+
+ 7. Performing Word Count
+
+- On the client GUI, choose the Word Count option.
+- You will be prompted to upload a `.txt` or `.pdf` file.
+- The client extracts the text (PDFs are auto-converted).
+- The text is sent to the **primary server**, which divides the workload among available slave nodes.
+- Each slave counts words in its assigned chunk.
+- The primary server collects and aggregates the results.
+- The total word count is displayed on the client GUI.
+
+Dependencies
+- Python 3.7 or later
+- Required Python packages:
+    - tkinter
+    - socket
+    - threading
+    - google-auth
+    - google-auth-oauthlib
+    - google-auth-httplib2
+    - google-api-python-client
+    - PyPDF2
+
+
+Google Drive API Setup (for File Handling)
+
+1. Enable Google Drive API in your Google Cloud Console.
+2. Download `client_secrets.json` and place it in the root directory.
+3. On first run, authenticate with your Google account.
+4. A `token.pickle` file will be created for future access.
+
+
+Directory Structure
+
+- client.py              → GUI client application
+- primary_server.py      → Main task coordinator
+- secondary_server.py    → Backup Server
+- slave1.py, slave2.py,
+  slave3.py              → Worker nodes
+- client_secrets.json    → Google API credentials
+- token.pickle           → Auth token
+- temp/                  → Temporary storage directory
+
+
+Notes
+- Make sure all scripts are running on the same network or properly configured with correct IPs.
+- Matrix multiplication logic is invoked from the client.py GUI and processed across slaveX.py files via the primary server.
