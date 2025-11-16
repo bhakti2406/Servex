@@ -171,7 +171,7 @@ def performMatrixMultiplication():
 root = tk.Tk()
 root.geometry("500x500")
 
-ip = ["10.200.19.168"] #get the list of server IPs
+ip = ["10.0.2.15"] #get the list of server IPs
 i = 0
 c=1
 
