@@ -20,7 +20,7 @@ This project demonstrates a distributed system using a master-slave (client-serv
 ## Directory Structure
 
 ```
-Master_Slave-Client_Server_System/
+Servex/
 ├── client.py
 ├── primary_server.py
 ├── secondary_server.py
