@@ -1,12 +1,11 @@
-# Distributed Master-Slave Client-Server System
+# Servex
 
-This project demonstrates a distributed system using a master-slave (client-server) framework in Python. It supports distributed word count and matrix multiplication operations, leveraging Pyro4 for remote object communication and Google Drive API for file handling.
+This project demonstrates a distributed system using a master-slave (client-server) framework in Python. It supports distributed word count and matrix multiplication operations, leveraging Pyro4 for remote object communication.
 
 ## Features
 
 - **Distributed Word Count:** Upload a text file, split the workload among slave nodes, and aggregate word frequencies.
 - **Distributed Matrix Multiplication:** Enter matrices via GUI, distribute computation across slaves, and collect results.
-- **Google Drive Integration:** Upload/download files for processing using Google Drive API.
 - **Fault Tolerance:** Supports multiple slaves and backup server.
 - **GUI Client:** User-friendly interface built with Tkinter.
 
@@ -16,7 +15,6 @@ This project demonstrates a distributed system using a master-slave (client-serv
 - **Primary Server (`src/primary_server.py`):** Coordinates tasks, splits workloads, and aggregates results.
 - **Secondary Server (`src/secondary_server.py`):** Backup server for redundancy.
 - **Slaves (`src/slave1.py`, `src/slave2.py`, `src/slave3.py`):** Worker nodes that process assigned tasks.
-- **Google Drive API:** Used for file upload/download.
 - **Pyro4 Name Server:** Registers slaves and enables remote method invocation.
 
 ## Directory Structure
@@ -56,20 +54,13 @@ google-auth-oauthlib google-auth-httplib2 \
 google-api-python-client PyPDF2 Pyro4 psutil
 ```
 
-### 3. Google Drive API Setup
-
-- Enable **Google Drive API** in [Google Cloud Console](https://console.developers.google.com/).
-- Create OAuth 2.0 credentials and download `src/client_secrets.json`.
-- Place `src/client_secrets.json` in the project root.
-- On first run, authenticate in browser; `token.pickle` will be generated.
-
-### 4. Start Pyro4 Name Server
+### 3. Start Pyro4 Name Server
 
 ```sh
 python3 -m Pyro4.naming -n <your_ip>
 ```
 
-### 5. Start Slave Nodes
+### 4. Start Slave Nodes
 
 Open a new terminal for each slave:
 
@@ -79,19 +70,19 @@ python3 slave2.py
 python3 slave3.py
 ```
 
-### 6. Start Primary Server
+### 5. Start Primary Server
 
 ```sh
 python3 primary_server.py
 ```
 
-### 7. (Optional) Start Secondary Server
+### 6. (Optional) Start Secondary Server
 
 ```sh
 python3 secondary_server.py
 ```
 
-### 8. Start Client Application
+### 7. Start Client Application
 
 ```sh
 python3 client.py
@@ -131,7 +122,6 @@ python3 client.py
 ## Notes
 
 - Ensure all scripts run on the same network or configure IPs accordingly.
-- The client authenticates with Google Drive on first run.
 - Temporary files are stored in `src/temp`.
 
 ## License
