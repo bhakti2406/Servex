@@ -166,7 +166,7 @@ def send_for_matrix(slave,i,m1,matrix,queue): #this function is used to send the
 
 def ConnectSlave(name,queue): #this function will be used to connect to the respective slaves
     try:
-        ns = Pyro4.locateNS('10.200.19.168')
+        ns = Pyro4.locateNS('10.0.2.15')
         uri = ns.lookup(name)
         s = Pyro4.Proxy(uri)
         try:
